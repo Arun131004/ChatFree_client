@@ -83,6 +83,13 @@ input[type="number"]:focus, input[type="text"]:focus {
     justify-content: flex-end;
     gap: 0;
 }
+.label-input {
+    flex: 1 1 0;
+    min-width: 0;
+}
+#connectBtn, #sendBtn, #getBtn {
+    flex-shrink: 0;
+}
 #messages {
     border: 1px solid #cfd8dc;
     background: #f9fafb;
