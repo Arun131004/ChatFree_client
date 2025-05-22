@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Messenger Client</title>
+    <link rel="stylesheet" href="client.css">
+</head>
+<body>
+    <div class="container">
+        <h2>E-Messenger Client</h2>
+        <div class="row">
+            <label class="label-input">Client ID:
+                <input type="number" id="clientId" min="0" max="255" placeholder="0-255">
+            </label>
+            <button class="btn" id="connectBtn">Connect</button>
+            <span id="status"></span>
+        </div>
+        <div id="main" style="display:none;">
+            <div class="row">
+                <label class="label-input">Receiver ID:
+                    <input type="number" id="receiverId" min="0" max="255" placeholder="0-255">
+                </label>
+            </div>
+            <div class="row">
+                <input type="text" id="messageInput" placeholder="Type your message" class="msg-input">
+                <button class="btn" id="sendBtn">Send</button>
+            </div>
+            <div class="row right">
+                <button class="btn" id="getBtn">Get Message</button>
+            </div>
+            <div id="messages"></div>
+        </div>
+    </div>
+    <script src="client.js"></script>
+</body>
+</html>
