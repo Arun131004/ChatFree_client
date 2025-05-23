@@ -8,23 +8,23 @@
 <body>
     <div class="container">
         <h2>E-Messenger Client</h2>
-        <div class="row">
-            <label class="label-input">Client ID:
-                <input type="number" id="clientId" min="0" max="255" placeholder="0-255">
+        <form id="connectForm" class="form-vertical">
+            <label class="label-input">
+                Client ID:
+                <input type="number" id="clientId" min="0" max="255" placeholder="0-255" required>
             </label>
-            <button class="btn" id="connectBtn">Connect</button>
-            <span id="status"></span>
-        </div>
+            <button type="submit" class="btn" id="connectBtn">Connect</button>
+        </form>
+        <div id="status"></div>
         <div id="main" style="display:none;">
-            <div class="row">
-                <label class="label-input">Receiver ID:
-                    <input type="number" id="receiverId" min="0" max="255" placeholder="0-255">
+            <form id="messageForm" class="row">
+                <label class="label-input">
+                    Receiver ID:
+                    <input type="number" id="receiverId" min="0" max="255" placeholder="0-255" required>
                 </label>
-            </div>
-            <div class="row">
-                <input type="text" id="messageInput" placeholder="Type your message" class="msg-input">
-                <button class="btn" id="sendBtn">Send</button>
-            </div>
+                <input type="text" id="messageInput" placeholder="Type your message" class="msg-input" required>
+                <button type="submit" class="btn" id="sendBtn">Send</button>
+            </form>
             <div class="row right">
                 <button class="btn" id="getBtn">Get Message</button>
             </div>
