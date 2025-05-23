@@ -11,7 +11,8 @@ function appendMessage(msg) {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-document.getElementById('connectBtn').onclick = function() {
+document.getElementById('connectForm').onsubmit = function(event) {
+    event.preventDefault(); // Prevent form from submitting and reloading the page
     clientId = parseInt(document.getElementById('clientId').value, 10);
     if (isNaN(clientId) || clientId < 0 || clientId > 255) {
         alert('Enter valid client ID (0-255)');
@@ -62,7 +63,8 @@ document.getElementById('connectBtn').onclick = function() {
     };
 };
 
-document.getElementById('sendBtn').onclick = function() {
+document.getElementById('messageForm').onsubmit = function(event) {
+    event.preventDefault();
     let receiverId = parseInt(document.getElementById('receiverId').value, 10);
     let message = document.getElementById('messageInput').value;
     if (!ws || ws.readyState !== 1) return;
@@ -83,6 +85,7 @@ document.getElementById('sendBtn').onclick = function() {
     packet[4] = payload.length;
     packet.set(payload, 5);
     ws.send(packet);
+    document.getElementById('messageInput').value = '';
 };
 
 document.getElementById('getBtn').onclick = function() {
