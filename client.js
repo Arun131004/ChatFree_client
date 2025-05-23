@@ -5,10 +5,20 @@ const ASSOCIATIONSUCCESS = 1, ASSOCIATIONFAILED = 2, BUFFEREMPTY = 1, POSITIVEAC
 
 let ws, clientId;
 
+const E2EE_KEY = 42; // Both clients must use the same key
+
 function appendMessage(msg) {
     const messagesDiv = document.getElementById('messages');
     messagesDiv.innerHTML += msg + '<br>';
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function xorEncryptDecrypt(data) {
+    let result = new Uint8Array(data.length);
+    for (let i = 0; i < data.length; i++) {
+        result[i] = data[i] ^ E2EE_KEY;
+    }
+    return result;
 }
 
 document.getElementById('connectForm').onsubmit = function(event) {
@@ -47,8 +57,10 @@ document.getElementById('connectForm').onsubmit = function(event) {
             if (data[1] === 0) { // GETRESPONSE
                 let senderId = data[3];
                 let length = data[4];
-                let payload = new TextDecoder().decode(data.slice(5, 5 + length));
-                appendMessage('From ' + senderId + ': ' + payload);
+                let payload = data.slice(5, 5 + length);
+                payload = xorEncryptDecrypt(payload); // Decrypt after receiving
+                let text = new TextDecoder().decode(payload);
+                appendMessage('From ' + senderId + ': ' + text);
             }
         } else {
             appendMessage('Unknown response: ' + data);
@@ -73,6 +85,7 @@ document.getElementById('messageForm').onsubmit = function(event) {
         return;
     }
     let payload = new TextEncoder().encode(message);
+    payload = xorEncryptDecrypt(payload); // Encrypt before sending
     if (payload.length > 254) {
         alert('Message too long (max 254 bytes)');
         return;
